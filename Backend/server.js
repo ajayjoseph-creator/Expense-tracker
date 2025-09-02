@@ -2,23 +2,34 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRouter from '../Backend/routes/userRoutes.js';
-import expenseRouter from '../Backend/routes/expenseRoute.js'
+import expenseRouter from '../Backend/routes/expenseRoute.js';
 import cors from 'cors';
 
 dotenv.config();
 const app = express();
-
 app.use(express.json());
 
+// CORS setup
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://expense-tracker-mu-eosin.vercel.app"
+];
+
 app.use(cors({
-    origin: "expense-tracker-mu-eosin.vercel.app",
-    credentials: true
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(!allowedOrigins.includes(origin)){
+      return callback(new Error("CORS blocked"), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
 }));
 
 connectDB();
 
 app.use('/api/user', authRouter);
-app.use('/api/expenses',expenseRouter)
+app.use('/api/expenses', expenseRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
