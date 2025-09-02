@@ -14,7 +14,7 @@ const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:3002/api/user/register", form);
+      const { data } = await axios.post("https://expense-tracker-d7q8.onrender.com/api/user/register", form);
       setMessage(data.message);
       toast.success('registered successfully')
  navigate('/')

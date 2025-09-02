@@ -47,7 +47,7 @@ export default function Dashboard() {
       if (!token) return;
 
       const { data } = await axios.get(
-        "http://localhost:3002/api/expenses/getexpense",
+        "https://expense-tracker-d7q8.onrender.com/api/expenses/getexpense",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -64,7 +64,7 @@ export default function Dashboard() {
       if (!token) return;
 
       const { data } = await axios.get(
-        "http://localhost:3002/api/expenses/summary",
+        "https://expense-tracker-d7q8.onrender.com/api/expenses/summary",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -82,7 +82,7 @@ export default function Dashboard() {
       if (!token) return toast.warning("Please login first");
 
       await axios.post(
-        "http://localhost:3002/api/expenses/addexpense",
+        "https://expense-tracker-d7q8.onrender.com/api/expenses/addexpense",
         form,
         getAuthHeaders()
       );
