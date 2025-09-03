@@ -8,16 +8,24 @@ import cors from 'cors';
 dotenv.config();
 const app = express();
 
-app.use(express.json());
 
-// CORS setup (dev + production)
 app.use(cors({
   origin: ["http://localhost:5173", "https://expense-tracker-mu-eosin.vercel.app"],
   credentials: true,
   optionsSuccessStatus: 200
 }));
 
+
+app.options("*", cors({
+  origin: ["http://localhost:5173", "https://expense-tracker-mu-eosin.vercel.app"],
+  credentials: true
+}));
+
+app.use(express.json());
+
+
 connectDB();
+
 
 app.use('/api/user', authRouter);
 app.use('/api/expenses', expenseRouter);
